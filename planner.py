@@ -51,6 +51,7 @@ class Planner():
 
     def update_delta(self, new_Delta):
         self.Delta = new_Delta
+        self.rmpc = RMPC(self.T, self.xdim, self.state_bounds, self.udim, self.input_bounds, self.A, self.B, self.x0_bar, self.Sigma_x0, self.Sigma_w, self.Delta, self.xf_bar)
 
     def reset_rmpc(self):
         self.rmpc = RMPC(self.T, self.xdim, self.state_bounds, self.udim, self.input_bounds, self.A, self.B, self.x0_bar, self.Sigma_x0, self.Sigma_w, self.Delta, self.xf_bar)
@@ -63,6 +64,8 @@ class Planner():
         IRA(self.rmpc, alpha, active_tol, convergence_tol)
 
     def plan_without_IRA(self):
+        for i in range(len(self.rmpc.lcc)):
+            self.rmpc.lcc[i].delta = self.rmpc.Delta/len(self.rmpc.lcc)
         self.rmpc.determinize_and_solve()
 
     def get_x(self):
@@ -76,6 +79,9 @@ class Planner():
 
     def get_objects(self):
         return self.objects
+
+    def get_objective(self):
+        return self.rmpc.objective()
 
 
 

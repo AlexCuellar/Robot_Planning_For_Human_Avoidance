@@ -75,7 +75,7 @@ def IRA(rmpc, alpha=0.7, active_tol=0.001, convergence_tol=0.001):
     n_con = len(rmpc.lcc)
     count = 0
     while abs(J - J_new) > convergence_tol:
-        print("IRA STEP", count)
+        # print("IRA STEP", count)
         count += 1
         # for con in rmpc.lcc:
         #     print(con.delta)
