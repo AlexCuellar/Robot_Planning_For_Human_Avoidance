@@ -1,3 +1,4 @@
+from cProfile import label
 from turtle import color
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
@@ -6,7 +7,7 @@ import numpy as np
 from pulp import value
 from scipy.special import erfinv
 
-def visualize(xs, objs, c=["r", "m", "g", "c", "k"]):
+def visualize(xs, labels, objs, c=["r", "m", "g", "c", "k"]):
     fig, ax = plt.subplots()
 
     #create simple line plot
@@ -18,11 +19,7 @@ def visualize(xs, objs, c=["r", "m", "g", "c", "k"]):
         ax.add_patch(Rectangle((obj.x - obj.w/2, obj.y - obj.h/2), obj.w, obj.h, color=(0, 0, b)))
     
     for n, x in enumerate(xs):
-        ax.scatter([i[0] for i in x], [i[1] for i in x], color=c[n])
+        ax.scatter([i[0] for i in x], [i[1] for i in x], color=c[n], label=labels[n])
     #display plot
+    ax.legend()
     plt.show()
-
-def visualize_specific(x, obj, timesteps):
-    x_spec = [x[i] for i in timesteps]
-    obj_spec = [obj[i] for  i in timesteps]
-    visualize(x_spec, obj_spec)

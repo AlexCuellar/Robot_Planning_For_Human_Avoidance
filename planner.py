@@ -7,7 +7,7 @@ from RMPC_robot import RMPC, LCC, Object
 # from utils import *
 import pulp as pl
 # import ira
-from visualize_environment import visualize, visualize_specific
+from visualize_environment import visualize
 
 from ira import IRA
 

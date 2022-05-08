@@ -41,7 +41,7 @@ p = Planner(T, 4, 2, T_length, A, B, x0_bar, xf_bar, Sigma_x0, Sigma_w, Delta, s
 p.plan_with_IRA() # optimize path
 x1 = p.get_x() # get plan states
 print("Objective: ", p.get_objective())
-visualize(xs=[x1], objs=[], c=["r"])
+visualize(xs=[x1], labels=["No obstacle plan"], objs=[], c=["r"])
 print()
 
 ######### EX 2: PLAN WITH OBJECTS #####################
@@ -53,7 +53,7 @@ x1 = p.get_x() # get plan states
 print("Objective: ", p.get_objective())
 # visualize
 objs = p.get_objects()
-visualize(xs=[x1], objs=objs, c=["r"])
+visualize(xs=[x1], labels=["Plan with obstacles"], objs=objs, c=["r"])
 print()
 
 ######### EX 3: COMPARE DIFFERENT DELTAS ##############
@@ -64,7 +64,7 @@ p1.include_trajectories(data) # Add trajectories to planner
 p1.plan_with_IRA() # optimize path
 x1 = p1.get_x() # get plan states
 # Plan with Delta = .4
-Delta = 0.2 # Set chance constraint
+Delta = 0.4 # Set chance constraint
 p2 = Planner(T, 4, 2, T_length, A, B, x0_bar, xf_bar, Sigma_x0, Sigma_w, Delta, state_bounds, input_bounds)
 p2.include_trajectories(data) # Add trajectories to planner
 p2.plan_with_IRA() # optimize path
@@ -80,7 +80,7 @@ avg_distance = total_distance/len(x1)
 print("Avg distance between plans: ", avg_distance)
 # visualize
 objs = p2.get_objects()
-visualize(xs=[x1, x2], objs=objs, c=["r", "g"])
+visualize(xs=[x1, x2], labels=["Delta = .1", "Delta = .4"], objs=objs, c=["r", "g"])
 print()
 
 ######## EX 4: COMPARE IRA VS VANILLA OPTIMIZATION ####
@@ -107,4 +107,4 @@ avg_distance = total_distance/len(x1)
 print("Avg distance between plans: ", avg_distance)
 # visualize
 objs = p2.get_objects()
-visualize(xs=[x1, x2], objs=objs, c=["r", "g"])
+visualize(xs=[x1, x2], labels=["IRA", "No IRA"], objs=objs, c=["r", "g"])
